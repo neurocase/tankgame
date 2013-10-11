@@ -1,6 +1,6 @@
 package tankgame
 
 type Entity struct{
-Rot, Xpos, Ypos float64
+Rot, Xpos, Ypos, Size float64
 
 } 

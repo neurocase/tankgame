@@ -2,6 +2,8 @@ package main
 
 
 
+
+
 /*
  ---------------- SUPER BASIC RTS
 
@@ -28,6 +30,7 @@ Review possibilities of creating basic tower defence game or RTS
 */
 
 
+
 import (
 	"fmt"
 	gameloop "github.com/GlenKelley/go-glutil/gameloop"
@@ -38,30 +41,40 @@ import (
 
 )
 
+
+
+
+var en = tankgame.Entity{0,-1,-1, 1}
+
+
+
 func main() {
 	game := &Game{}
 	err := gameloop.CreateWindow(640, 480, "daz gl test", false, game)
 	fmt.Println(err)
 }
 
-
-
-
-
 type Game struct {
 //	Red float64
 }
 
 func (game *Game) Init(window *glfw.Window) {
+	//Select the 'projection matrix'
+	gl.MatrixMode(gl.PROJECTION)
+	//Reset
+	gl.LoadIdentity()
+	//Scale everything down, to 1/10 scale
+	gl.Scaled(0.1,0.1,0.1)
 
 }
 
 func (game *Game) Draw(window *glfw.Window) {
+	gl.MatrixMode(gl.MODELVIEW)
+	gl.LoadIdentity()
 	gl.ClearColor(0.2, 0.2, 0.2, 1)
 	gl.Clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
-	gl.Translatef(0,0,0)
 
-	en := tankgame.Entity{2,-0.5,0}
+	
 
 	tankgame.DrawEntity(en)
 
@@ -79,6 +92,7 @@ if action == glfw.Press{
 
 	case glfw.MouseButtonLeft:
 		fmt.Println(tankgame.Hello())
+		en.Rot += 0.1
 	}
 }
 
