@@ -1,12 +1,41 @@
 package main
 
+
+
+/*
+ ---------------- SUPER BASIC RTS
+
+STAGE 1:
+
+Click to place red or green triangles, green triangles will automaticly fly directly into nearest red triangle and self destruct, 
+both triangles will disappear. (press key to switch)
+
+STAGE 2:
+
+Yellow triangles will shoot at green triangles and try to shoot them before they hit red triangle.
+
+
+STAGE 3:
+
+Impliment some sort of path finding, generate paths with trace if possible, revert to waypoints if too difficult. 
+
+STAGE 4:
+
+Review possibilities of creating basic tower defence game or RTS
+
+
+
+*/
+
+
 import (
 	"fmt"
 	gameloop "github.com/GlenKelley/go-glutil/gameloop"
 	"github.com/go-gl/gl"
 	glfw "github.com/go-gl/glfw3"
-	"math"
+//	"math"
 	"github.com/neurocase/tankgame"
+
 )
 
 func main() {
@@ -15,8 +44,12 @@ func main() {
 	fmt.Println(err)
 }
 
+
+
+
+
 type Game struct {
-	Red float64
+//	Red float64
 }
 
 func (game *Game) Init(window *glfw.Window) {
@@ -26,14 +59,12 @@ func (game *Game) Init(window *glfw.Window) {
 func (game *Game) Draw(window *glfw.Window) {
 	gl.ClearColor(0.2, 0.2, 0.2, 1)
 	gl.Clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
+	gl.Translatef(0,0,0)
 
-	gl.Color3d(game.Red, 0, 0)
-	gl.Begin(gl.TRIANGLES)
-	gl.Vertex3d(0, 0, 0)
-	gl.Vertex3d(0, 1, 0)
-	gl.Vertex3d(1, 1, 0)
-	gl.Vertex3d(1, 0, 0)
-	gl.End()
+	en := tankgame.Entity{2,-0.5,0}
+
+	tankgame.DrawEntity(en)
+
 }
 
 func (game *Game) Reshape(window *glfw.Window, width, height int) {
@@ -76,7 +107,7 @@ func (game *Game) Scroll(window *glfw.Window, xoff float64, yoff float64) {
 }
 
 func (game *Game) Simulate(time gameloop.GameTime) {
-	game.Red = math.Sin(time.Elapsed.Seconds())
+	//game.Red = math.Sin(time.Elapsed.Seconds())
 }
 
 func (game *Game) OnClose(window *glfw.Window) {
