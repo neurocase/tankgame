@@ -44,7 +44,7 @@ import (
 
 
 
-var en = tankgame.Entity{0,-1,-1, 1}
+var en = tankgame.Entity{0,-1,-1, 1,"blue"}
 
 
 

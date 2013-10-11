@@ -20,6 +20,22 @@ x := en.Xpos
 y := en.Ypos
 r := en.Rot
 s := en.Size
+col := en.Colour
+
+
+switch col{
+	case "red":
+			gl.Color3d(255, 0, 0)
+
+	case "green":
+			gl.Color3d(0, 255, 0)
+	case "blue":
+			gl.Color3d(0, 0, 255)
+	case "yellow":
+			gl.Color3d(255, 255, 0)
+	default:
+			gl.Color3d(255, 255, 255)
+}
 
 enx := [3]float64{-1*s,1*s,0*s}
 eny := [3]float64{1*s,1*s,-1*s}
@@ -29,11 +45,10 @@ enyr := [3]float64 {eny[0],eny[1],eny[2]}
 
 	for i := 0; i < 3; i++{
 		enx[i] = enxr[i]*math.Cos(r)-enyr[i]*math.Sin(r)
-		eny[i] = enxr[i]*math.Sin(r)+enyr[i]*math.Cos(r)
-		
+		eny[i] = enxr[i]*math.Sin(r)+enyr[i]*math.Cos(r)	
 	}
 
-	gl.Color3d(255, 0, 0)
+
 	gl.Begin(gl.TRIANGLES)
 	gl.Vertex3d(x+enx[0], y+eny[0], 0)
 	gl.Vertex3d(x+enx[1], y+eny[1], 0)
