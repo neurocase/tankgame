@@ -3,7 +3,7 @@ package tankgame
 import (
 //	"fmt"
 	"github.com/go-gl/gl"
-	"math"
+	//"math"
 
 )
 
@@ -24,34 +24,40 @@ col := en.Colour
 
 
 switch col{
+	case "grey":
+			gl.Color3d(0.5,0.5,0.5)
 	case "red":
-			gl.Color3d(255, 0, 0)
-
+			gl.Color3d(1, 0, 0)
 	case "green":
-			gl.Color3d(0, 255, 0)
+			gl.Color3d(0, 1, 0)
 	case "blue":
-			gl.Color3d(0, 0, 255)
+			gl.Color3d(0, 0, 1)
 	case "yellow":
-			gl.Color3d(255, 255, 0)
+			gl.Color3d(1, 1, 0)
 	default:
-			gl.Color3d(255, 255, 255)
+			gl.Color3d(1, 1, 1)
 }
 
-enx := [3]float64{-1*s,1*s,0*s}
-eny := [3]float64{1*s,1*s,-1*s}
+	gl.PushMatrix()
 
-enxr := [3]float64 {enx[0],enx[1],enx[2]}
-enyr := [3]float64 {eny[0],eny[1],eny[2]}
+	gl.Translated(x, y, 0)
+	gl.Scaled(s, s, s)
+	//gl.Rotated(r*180/math.Pi, 0, 0, 1)
+	gl.Rotated(r, 0, 0, 1)
 
-	for i := 0; i < 3; i++{
-		enx[i] = enxr[i]*math.Cos(r)-enyr[i]*math.Sin(r)
-		eny[i] = enxr[i]*math.Sin(r)+enyr[i]*math.Cos(r)	
-	}
+	enx := [3]float64{-0.8, 0.8, 0}
+	eny := [3]float64{1, 1, -1}
 
+
+	//in OpenGL 3.2, the vertices below would be stored on the GPU
+	//so all you would need to do is say DrawShape(A) or something
 
 	gl.Begin(gl.TRIANGLES)
-	gl.Vertex3d(x+enx[0], y+eny[0], 0)
-	gl.Vertex3d(x+enx[1], y+eny[1], 0)
-	gl.Vertex3d(x+enx[2], y+eny[2], 0)
+	gl.Vertex3d(enx[0], eny[0], 0)
+	gl.Vertex3d(enx[1], eny[1], 0)
+	gl.Vertex3d(enx[2], eny[2], 0)
 	gl.End()
+
+	gl.PopMatrix()
+
 }
